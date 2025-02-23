@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { NumberInputType } from '../../../types/setupType';
 import RankingRow from './index';
 
 const meta = {

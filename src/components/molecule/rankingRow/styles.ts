@@ -2,7 +2,7 @@ import { styled } from 'styled-components';
 
 export const Wrapper = styled.div`
   min-width: 600px;
-  width: 50vw;
+  width: 40vw;
   height: 100px;
   display: grid;
   grid-template-columns: 0.4fr 1fr 4fr;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   border-radius: 16px;
   padding: 10px 20px;
   align-items: center;
-
+  box-shadow: 5px 5px 13px rgba(0, 0, 0, 0.15);
   .ranking-box {
     width: 80px;
     height: 80px;
