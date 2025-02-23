@@ -1,0 +1,29 @@
+# Node.js
+node_modules/
+
+# build
+dist/
+build/
+
+#log
+npm-debug.log*
+
+#cache
+package-lock.json
+.npmrc
+.npm/
+
+# TypeScript build
+*.tsbuildinfo
+
+# ESLint, Prettier
+.eslintcache
+.prettier.cache
+
+# IDE OS
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+*storybook.log
