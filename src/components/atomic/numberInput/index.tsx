@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { NumberInputType } from '../../../types/setupType';
+import { NumberInputType } from '../../../type/setupType';
 
 /**
  * NumberInput props
@@ -45,7 +45,7 @@ const NumberInput = ({ value, onChange, min, max }: NumberInputProps) => {
     <input
       value={inputValue}
       type={'text'}
-      onChange={e => {
+      onChange={(e) => {
         if (regex.test(e.target.value) || e.target.value === '') {
           setInputValue(e.target.value);
           onChange?.(e);
