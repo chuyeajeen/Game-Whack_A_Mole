@@ -31,6 +31,17 @@ module.exports = {
                     filename: "assets/[name].[hash][ext]", // 빌드 시 저장될 위치
                 },
             },
+            {
+                test: /\.ttf$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'fonts/[name].[ext]',
+                        },
+                    },
+                ]
+            }
 
         ],
     },

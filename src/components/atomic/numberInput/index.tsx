@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { NumberInputType } from '../../../type/setupType';
+import {Wrapper} from "./styles";
 
 /**
  * NumberInput props
@@ -9,15 +9,17 @@ import { NumberInputType } from '../../../type/setupType';
  * @param onChange: input 콜백함수
  * @param min : input 에 들어올 수 있는 최소값
  * @param mix : input 에 들어올 수 있는 최댓값
+ * @param onOutOfRange : min/max 를 벗어났을 때 호출될 콜백 함수
  */
 interface NumberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: NumberInputType;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   min?: number;
   max?: number;
+    onOutOfRange?: (value: NumberInputType) => void
 }
 
-const NumberInput = ({ value, onChange, min, max }: NumberInputProps) => {
+const NumberInput = ({ value, onChange, min, max, onOutOfRange }: NumberInputProps) => {
   const [inputValue, setInputValue] = useState(value ?? '');
 
   const regex = useMemo((): RegExp => {
@@ -27,28 +29,32 @@ const NumberInput = ({ value, onChange, min, max }: NumberInputProps) => {
 
   const validateValue = useCallback(
     (value: string): string => {
-      if (min !== undefined && Number(value) < min) return String(min);
-      if (max !== undefined && Number(value) > max) return String(max);
+      if (min !== undefined && Number(value) < min) {
+          onOutOfRange?.(value);
+        return String(min);
+      }
+      if (max !== undefined && Number(value) > max) {
+          onOutOfRange?.(value);
+        return String(max);
+      }
       return value;
-    },
-    [min, max],
+ },
+    [min, max,onOutOfRange],
   );
 
-  useEffect(() => {
-    console.log(value);
-    if (value === undefined || value === null) return;
-    const changeValue: string = validateValue(String(value));
-    setInputValue(changeValue);
-  }, [value]);
-
   return (
-    <input
+    <Wrapper
       value={inputValue}
       type={'text'}
       onChange={(e) => {
-        if (regex.test(e.target.value) || e.target.value === '') {
+        if (e.target.value === '') {
           setInputValue(e.target.value);
           onChange?.(e);
+        }
+        else if(regex.test(e.target.value)){
+            const changeValue: string = validateValue(String(e.target.value));
+            setInputValue(changeValue);
+            onChange?.(e);
         }
       }}
       onBlur={() => {
