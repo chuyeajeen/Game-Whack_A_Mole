@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
+import TextInput from "./components/atomic/textInput";
+import Landing from "./pages/landing";
 
 const App: React.FC = () => {
-  return <div>HELLO</div>;
+  const [state, setState] = useState('');
+  return <Landing/>
 };
 
 export default App;

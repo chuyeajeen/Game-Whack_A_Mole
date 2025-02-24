@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { NumberInputType } from '../../../types/setupType';
 import NumberInput from "./index";
 
 const meta = {
