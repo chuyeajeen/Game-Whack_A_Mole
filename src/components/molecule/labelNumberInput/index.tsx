@@ -1,6 +1,5 @@
 import React from 'react';
 import NumberInput from '../../atomic/numberInput';
-import { NumberInputType } from '../../../type/setupType';
 import { Wrapper } from './styles';
 
 interface LabelNumberInput {

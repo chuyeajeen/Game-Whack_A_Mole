@@ -17,7 +17,7 @@ const Toast = () => {
 
   if (!toast.open) return null;
 
-  return <ToastWrapper>11</ToastWrapper>;
+  return <ToastWrapper>{toast.message}</ToastWrapper>;
 };
 
 export default Toast;
