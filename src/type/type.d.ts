@@ -4,3 +4,8 @@ type RankingItemType = {
   date: Date;
   ranking: number;
 };
+
+type ToastStateType = {
+  open: boolean;
+  message: string;
+};
