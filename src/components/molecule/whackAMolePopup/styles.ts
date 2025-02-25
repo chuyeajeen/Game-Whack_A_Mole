@@ -1,24 +1,26 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div<{ isVisible: boolean; speed: number }>`
-  width: 100px;
+  width: 200px;
   height: 200px;
   position: relative;
-  background-color: coral;
+  overflow: hidden;
   grid-template-columns: ${({ labelWidth }) => `${labelWidth} 1fr`};
   .hole {
-    width: 100px;
+    width: 200px;
     height: 100px;
     position: absolute;
-    bottom: 0;
+    bottom: -40px;
     z-index: 99999;
+    overflow: hidden;
+    background: transparent;
   }
 
   .mole {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     position: absolute;
-    bottom: ${({ isVisible }) => (isVisible ? '100px' : '10px')};
+    bottom: ${({ isVisible }) => (isVisible ? '-20px' : '-98px')};
     left: 50%;
     transform: translateX(-50%);
     transition: ${({ speed }) => `bottom ${speed}ms ease-in-out`};
