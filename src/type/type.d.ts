@@ -9,3 +9,5 @@ type ToastStateType = {
   open: boolean;
   message: string;
 };
+
+type NumberInputType=number|string;
