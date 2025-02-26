@@ -8,6 +8,7 @@ export const Wrapper = styled.div<{ rowCount: number; colCount: number }>`
   background-image: url(${gameBg});
   background-size: cover;
   background-position: center;
+
   .game-info {
     display: flex;
     padding-right: 20px;
@@ -18,9 +19,6 @@ export const Wrapper = styled.div<{ rowCount: number; colCount: number }>`
     .title {
       width: 200px;
     }
-  }
-
-  .time {
   }
 
   .content {
@@ -35,5 +33,34 @@ export const Wrapper = styled.div<{ rowCount: number; colCount: number }>`
     place-items: center;
     grid-auto-flow: row dense;
     background-attachment: fixed;
+  }
+`;
+
+export const ScoreWrapper = styled.div`
+  .score-title {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    color: gold;
+    font-weight: bold;
+  }
+  .score {
+    width: 330px;
+    height: 200px;
+    background-color: #e7fdd8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    color: gold;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
   }
 `;

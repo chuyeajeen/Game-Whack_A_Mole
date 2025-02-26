@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-const Timer = () => {
-  const [milliseconds, setMilliseconds] = useState(60000);
+interface TimerProps {
+  key: number;
+  onTimerEnd?: () => void;
+}
+const Timer = ({ key, onTimerEnd }: TimerProps) => {
+  const [milliseconds, setMilliseconds] = useState(600);
 
   useEffect(() => {
-    if (milliseconds <= 0) return;
+    setMilliseconds(600);
+  }, [key]);
+
+  useEffect(() => {
+    if (milliseconds <= 0) {
+      if (onTimerEnd) onTimerEnd();
+      return;
+    }
     const timer = setInterval(() => {
       setMilliseconds((prev) => prev - 10);
     }, 10);

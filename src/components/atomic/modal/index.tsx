@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ModalContainer, Overlay } from './styles';
 
 interface ModalProps {
@@ -8,12 +8,22 @@ interface ModalProps {
 }
 
 const Modal = ({ isOpen, onClose, children }: ModalProps) => {
-  if (!isOpen) return null;
+  const [modalOpen, setModalOpen] = useState(isOpen);
+
+  useEffect(() => {
+    if (!modalOpen) return null;
+  }, [modalOpen]);
 
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <button className={'close-button'} onClick={onClose}>
+        <button
+          className={'close-button'}
+          onClick={() => {
+            setModalOpen(false);
+            onClose && onClose();
+          }}
+        >
           &times;
         </button>
         {children}

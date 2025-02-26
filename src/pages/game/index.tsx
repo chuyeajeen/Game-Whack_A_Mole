@@ -1,9 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Wrapper } from './styles';
+import { ScoreWrapper, Wrapper } from './styles';
 import WhackAMolePopup from '../../components/molecule/whackAMolePopup';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { moleState, visibleMoleState } from '../../store/moleState';
+import { useRecoilValue } from 'recoil';
+import { moleState } from '../../store/moleState';
 import Timer from '../../components/atomic/timer';
+import Modal from '../../components/atomic/modal';
+import Button from '../../components/atomic/button';
+import { useNavigate } from 'react-router-dom';
+
+interface GameScoreProps {
+  score: number;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GameScore = ({ score, setModalOpen }: GameScoreProps) => {
+  const navigate = useNavigate();
+
+  return (
+    <ScoreWrapper>
+      <div className={'score-title'}>SCORE</div>
+      <div className={'score'}>{score}점</div>
+      <div className={'button'}>
+        <Button label={'Ranking'} size={'small'} />
+        <Button label={'Home'} size={'small'} onClick={() => navigate('/')} />
+        <Button
+          label={'Retry'}
+          size={'small'}
+          onClick={() => setModalOpen(false)}
+        />
+      </div>
+    </ScoreWrapper>
+  );
+};
 
 const Game = () => {
   const mole = useRecoilValue(moleState);
@@ -12,6 +40,15 @@ const Game = () => {
     new Array(mole.row * mole.col).fill(false),
   );
   const [score, setScore] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [timerKey, setTimerKey] = useState(0);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      setScore(0);
+      setTimerKey((prevState) => prevState + 1);
+    }
+  }, [isModalOpen]);
 
   useEffect(() => {
     // 활성화된 두더지 인덱스 저장
@@ -20,6 +57,9 @@ const Game = () => {
     const cooldownMolesSet = new Set<number>();
 
     const updateMolesSequentially = () => {
+      if (isModalOpen) return;
+      console.log(isModalOpen);
+
       setVisibleMoles((prevMoles) => {
         let newVisibleMoles = [...prevMoles];
         let activeMoleCount = newVisibleMoles.filter((value) => value).length;
@@ -71,7 +111,7 @@ const Game = () => {
       activeMolesSet.clear();
       cooldownMolesSet.clear();
     };
-  }, []);
+  }, [isModalOpen]);
 
   return (
     <Wrapper rowCount={mole.row} colCount={mole.col}>
@@ -80,7 +120,8 @@ const Game = () => {
         <> {score}</>
       </div>
       <div className={'game-info'}>
-        <div className={'title'}>Time : </div> <Timer />
+        <div className={'title'}>Time : </div>{' '}
+        <Timer key={timerKey} onTimerEnd={() => setIsModalOpen(true)} />
       </div>
       <div className="content">
         {visibleMoles &&
@@ -94,6 +135,15 @@ const Game = () => {
             />
           ))}
       </div>
+      {isModalOpen && (
+        <Modal
+          isOpen={true}
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+          children={<GameScore score={score} setModalOpen={setIsModalOpen} />}
+        />
+      )}
     </Wrapper>
   );
 };

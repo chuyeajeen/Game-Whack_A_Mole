@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const sizeMap = {
-  small: { width: '80px', height: '40px', fontSize: '16px' },
+  small: { width: '100px', height: '40px', fontSize: '16px' },
   medium: { width: '120px', height: '40px', fontSize: '20px' },
   large: { width: '120px', height: '60px', fontSize: '20px' },
 };
