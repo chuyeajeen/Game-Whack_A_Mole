@@ -30,6 +30,7 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
   useEffect(() => {
     setMoleVisible(visible);
     setMoleSpeed(speed);
+    if (visible) setIsLoght(false);
   }, [visible]);
 
   const handleMoleClick = (event: React.MouseEvent<HTMLDivElement>) => {

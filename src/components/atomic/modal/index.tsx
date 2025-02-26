@@ -3,11 +3,10 @@ import { ModalContainer, Overlay } from './styles';
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
   children: React.ReactNode;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, children }: ModalProps) => {
   const [modalOpen, setModalOpen] = useState(isOpen);
 
   useEffect(() => {
@@ -15,7 +14,7 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   }, [modalOpen]);
 
   return (
-    <Overlay onClick={onClose}>
+    <Overlay>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         {children}
       </ModalContainer>

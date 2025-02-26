@@ -43,11 +43,21 @@ const Landing = () => {
       message: '전체 굴 개수의 절반 미만의 값을 입력하세요 :) ',
     });
   };
+
+  const validateNumberInput = (value: NumberInputType) => {
+    return value === 0 || value === '';
+  };
+
   useEffect(() => {
-    if (row === 0 || col === 0 || mole === 0 || nickName === '')
+    if (
+      validateNumberInput(row) ||
+      validateNumberInput(col) ||
+      validateNumberInput(mole) ||
+      nickName === ''
+    )
       setValidateGameStart(true);
     else setValidateGameStart(false);
-  }, [row, col, mole]);
+  }, [row, col, mole, nickName]);
 
   return (
     <Wrapper>
@@ -88,7 +98,7 @@ const Landing = () => {
           <TextInput
             value={nickName}
             maxLength={20}
-            onChange={(e) => setNickName(e.target.value)}
+            onChange={(value) => setNickName(value)}
           />
         </div>
         <div className={'row-button'}>

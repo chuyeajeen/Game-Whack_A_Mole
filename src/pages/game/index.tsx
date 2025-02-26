@@ -182,9 +182,6 @@ const Game = () => {
       {isModalOpen && (
         <Modal
           isOpen={true}
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
           children={
             isPause ? (
               <Pause setRetry={setIsPause} />
