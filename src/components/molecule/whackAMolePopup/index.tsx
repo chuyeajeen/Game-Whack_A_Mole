@@ -3,6 +3,7 @@ import Hole from '../../../assets/game/hole.png';
 import Mole from '../../../assets/game/mole.png';
 import LightMole from '../../../assets/game/light-mole.png';
 import { Wrapper } from './styles';
+import { TIME_INTERVAL } from '../../../constants/game';
 
 /**
  * WhackAMoleHole Props
@@ -13,14 +14,12 @@ import { Wrapper } from './styles';
 interface WhackAMoleHoleProps {
   visible: boolean;
   setCount: React.Dispatch<React.SetStateAction<number>>;
-  index: number;
   speed: number;
 }
 
 const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
   visible,
   setCount,
-  index,
   speed,
 }) => {
   const [moleVisible, setMoleVisible] = useState(visible);
@@ -34,7 +33,6 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
   }, [visible]);
 
   const handleMoleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    console.log(moleVisible, handleDoubleClick, index);
     if (handleDoubleClick.current) return;
     handleDoubleClick.current = true;
 
@@ -44,7 +42,7 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
     setIsLoght(true);
     setTimeout(() => {
       handleDoubleClick.current = false;
-    }, 2000);
+    }, TIME_INTERVAL);
   };
 
   return (

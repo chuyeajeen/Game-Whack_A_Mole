@@ -7,8 +7,8 @@ import Timer from '../../components/atomic/timer';
 import Modal from '../../components/atomic/modal';
 import Button from '../../components/atomic/button';
 import { useNavigate } from 'react-router-dom';
-import { PauseWrapper } from '../landing/styles';
 import { updateRanking } from '../../utils/cookieUtils';
+import { ADD_MOLE_TIME, TIME_INTERVAL } from '../../constants/game';
 
 interface GameScoreProps {
   score: number;
@@ -119,11 +119,11 @@ const Game = () => {
 
               setTimeout(() => {
                 cooldownMolesSet.delete(randomIndex);
-              }, 1000);
+              }, TIME_INTERVAL / 2);
 
               return updatedMoles;
             });
-          }, 2000);
+          }, TIME_INTERVAL);
         }
 
         return newVisibleMoles;
@@ -131,7 +131,7 @@ const Game = () => {
     };
 
     updateMolesSequentially();
-    const interval = setInterval(updateMolesSequentially, 300);
+    const interval = setInterval(updateMolesSequentially, ADD_MOLE_TIME);
 
     return () => {
       clearInterval(interval);
@@ -175,7 +175,7 @@ const Game = () => {
               visible={isVisible}
               setCount={setScore}
               index={index}
-              speed={2000}
+              speed={TIME_INTERVAL}
             />
           ))}
       </div>
