@@ -44,7 +44,8 @@ const Landing = () => {
     });
   };
   useEffect(() => {
-    if (row === '' || col === '' || mole === '') setValidateGameStart(true);
+    if (row === 0 || col === 0 || mole === 0 || nickName === '')
+      setValidateGameStart(true);
     else setValidateGameStart(false);
   }, [row, col, mole]);
 

@@ -55,6 +55,7 @@ const NumberInput = ({
       onChange={(e) => {
         if (e.target.value === '') {
           setInputValue(e.target.value);
+          onChange?.(e.target.value);
         } else if (regex.test(e.target.value)) {
           const changeValue: string = validateValue(String(e.target.value));
           setInputValue(changeValue);

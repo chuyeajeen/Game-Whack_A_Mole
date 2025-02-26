@@ -34,8 +34,8 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
 
   const handleMoleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     console.log(moleVisible, handleDoubleClick, index);
-    if (handleDoubleClick.current) return; // ✅ 이미 클릭한 두더지는 무시
-    handleDoubleClick.current = true; // ✅ 클릭한 두더지 저장
+    if (handleDoubleClick.current) return;
+    handleDoubleClick.current = true;
 
     setMoleVisible(false);
     setMoleSpeed(moleSpeed / 2);
