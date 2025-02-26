@@ -2,20 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { Wrapper } from './styles';
 import NumberInput from '../../components/atomic/numberInput';
 import Button from '../../components/atomic/button';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { toastState } from '../../store/toastState';
 import { useNavigate } from 'react-router-dom';
-import { moleState } from '../../store/moleState';
+import { moleState, nickNameState } from '../../store/moleState';
+import TextInput from '../../components/atomic/textInput';
 
 const Landing = () => {
-  const [row, setRow] = useState<number | ''>('');
-  const [col, setCol] = useState<number | ''>('');
-  const [mole, setMole] = useState<number | ''>('');
+  const setToast = useSetRecoilState(toastState);
+  const [moleInfo, setMoleInfo] = useRecoilState(moleState);
+
+  const [row, setRow] = useState<number | ''>(
+    moleInfo.row == 0 ? '' : moleInfo.row,
+  );
+  const [col, setCol] = useState<number | ''>(
+    moleInfo.col === 0 ? '' : moleInfo.col,
+  );
+  const [mole, setMole] = useState<number | ''>(
+    moleInfo.moleCount === 0 ? '' : moleInfo.moleCount,
+  );
   const [maxMole, setMaxMole] = useState<number>(0);
   const [validateGameStart, setValidateGameStart] = useState(false);
 
-  const setToast = useSetRecoilState(toastState);
-  const setMoleInfo = useSetRecoilState(moleState);
+  const [nickName, setNickName] = useRecoilState(nickNameState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +57,7 @@ const Landing = () => {
             value={row}
             min={2}
             max={6}
-            onChange={(e) => setRow(Number(e.target.value))}
+            onChange={(value) => setRow(Number(value))}
             onOutOfRange={handleOutOfRange}
           />
         </div>
@@ -58,7 +67,7 @@ const Landing = () => {
             value={col}
             min={2}
             max={6}
-            onChange={(e) => setCol(Number(e.target.value))}
+            onChange={(value) => setCol(Number(value))}
             onOutOfRange={handleOutOfRange}
           />
         </div>
@@ -68,12 +77,25 @@ const Landing = () => {
             value={mole}
             min={1}
             max={maxMole}
-            onChange={(e) => setMole(Number(e.target.value))}
+            v
+            onChange={(value) => setMole(Number(value))}
             onOutOfRange={handleMoleOutofRange}
           />
         </div>
+        <div className={'row-content'}>
+          Nickname :{' '}
+          <TextInput
+            value={nickName}
+            maxLength={20}
+            onChange={(e) => setNickName(e.target.value)}
+          />
+        </div>
         <div className={'row-button'}>
-          <Button label={'Ranking'} size={'large'} />
+          <Button
+            label={'Ranking'}
+            size={'large'}
+            onClick={() => navigate('/ranking')}
+          />
           <Button
             label={'Start'}
             size={'large'}

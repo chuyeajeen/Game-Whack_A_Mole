@@ -6,10 +6,15 @@ export const moleState = atom<{
   moleCount: number;
 }>({
   key: 'moleState',
-  default: { row: 2, col: 6, moleCount: 1 },
+  default: { row: 0, col: 0, moleCount: 0 },
 });
 
 export const catchMoleIndexState = atom<number>({
   key: 'visibleMoleState',
   default: 0,
+});
+
+export const nickNameState = atom<string>({
+  key: 'nickNameState',
+  default: '',
 });

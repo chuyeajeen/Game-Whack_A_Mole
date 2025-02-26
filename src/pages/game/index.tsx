@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ScoreWrapper, Wrapper } from './styles';
 import WhackAMolePopup from '../../components/molecule/whackAMolePopup';
 import { useRecoilValue } from 'recoil';
-import { moleState } from '../../store/moleState';
+import { moleState, nickNameState } from '../../store/moleState';
 import Timer from '../../components/atomic/timer';
 import Modal from '../../components/atomic/modal';
 import Button from '../../components/atomic/button';
 import { useNavigate } from 'react-router-dom';
+import { PauseWrapper } from '../landing/styles';
+import { updateRanking } from '../../utils/cookieUtils';
 
 interface GameScoreProps {
   score: number;
@@ -21,7 +23,11 @@ const GameScore = ({ score, setModalOpen }: GameScoreProps) => {
       <div className={'score-title'}>SCORE</div>
       <div className={'score'}>{score}점</div>
       <div className={'button'}>
-        <Button label={'Ranking'} size={'small'} />
+        <Button
+          label={'Ranking'}
+          size={'small'}
+          onClick={() => navigate('/ranking')}
+        />
         <Button label={'Home'} size={'small'} onClick={() => navigate('/')} />
         <Button
           label={'Retry'}
@@ -33,8 +39,24 @@ const GameScore = ({ score, setModalOpen }: GameScoreProps) => {
   );
 };
 
+interface PauseProps {
+  setRetry: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const Pause = ({ setRetry }: PauseProps) => {
+  return (
+    <ScoreWrapper>
+      <div className={'score-title'}>PAUSE</div>'
+      <div className={'button'}>
+        <Button label={'Restart'} onClick={() => setRetry(false)} />
+      </div>
+    </ScoreWrapper>
+  );
+};
+
 const Game = () => {
   const mole = useRecoilValue(moleState);
+  const navigate = useNavigate();
+
   const moleCount = useRef(mole.moleCount);
   const [visibleMoles, setVisibleMoles] = useState<boolean[]>(
     new Array(mole.row * mole.col).fill(false),
@@ -42,6 +64,12 @@ const Game = () => {
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [timerKey, setTimerKey] = useState(0);
+  const [isPause, setIsPause] = useState(false);
+  const nickName = useRecoilValue(nickNameState);
+
+  useEffect(() => {
+    if (!isPause) setIsModalOpen(false);
+  }, [isPause]);
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -58,7 +86,6 @@ const Game = () => {
 
     const updateMolesSequentially = () => {
       if (isModalOpen) return;
-      console.log(isModalOpen);
 
       setVisibleMoles((prevMoles) => {
         let newVisibleMoles = [...prevMoles];
@@ -121,7 +148,24 @@ const Game = () => {
       </div>
       <div className={'game-info'}>
         <div className={'title'}>Time : </div>{' '}
-        <Timer key={timerKey} onTimerEnd={() => setIsModalOpen(true)} />
+        <Timer
+          key={timerKey}
+          onTimerEnd={() => {
+            setIsModalOpen(true);
+            updateRanking(nickName, score);
+          }}
+          pause={isPause}
+        />
+      </div>
+      <div className={'game-info'} style={{ paddingTop: '20px' }}>
+        <Button
+          label={'Pause'}
+          onClick={() => {
+            setIsModalOpen(true);
+            setIsPause(true);
+          }}
+        />
+        <Button label={'Home'} onClick={() => navigate('/')} />
       </div>
       <div className="content">
         {visibleMoles &&
@@ -141,7 +185,13 @@ const Game = () => {
           onClose={() => {
             setIsModalOpen(false);
           }}
-          children={<GameScore score={score} setModalOpen={setIsModalOpen} />}
+          children={
+            isPause ? (
+              <Pause setRetry={setIsPause} />
+            ) : (
+              <GameScore score={score} setModalOpen={setIsModalOpen} />
+            )
+          }
         />
       )}
     </Wrapper>

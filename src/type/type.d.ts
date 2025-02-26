@@ -2,7 +2,7 @@ type RankingItemType = {
   name: string;
   score: number;
   date: Date;
-  ranking: number;
+  ranking?: number;
 };
 
 type ToastStateType = {
@@ -10,4 +10,4 @@ type ToastStateType = {
   message: string;
 };
 
-type NumberInputType=number|string;
+type NumberInputType = number | string;

@@ -17,15 +17,6 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <button
-          className={'close-button'}
-          onClick={() => {
-            setModalOpen(false);
-            onClose && onClose();
-          }}
-        >
-          &times;
-        </button>
         {children}
       </ModalContainer>
     </Overlay>

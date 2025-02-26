@@ -22,6 +22,9 @@ export const Wrapper = styled.button<{
   color: white;
   font-weight: bold;
   border: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     opacity: 0.8;
   }

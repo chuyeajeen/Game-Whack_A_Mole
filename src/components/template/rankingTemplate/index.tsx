@@ -14,7 +14,7 @@ const RankingTemplate = ({ rankings }: RankingTemplateProps) => {
           return (
             <RankingRow
               key={index}
-              ranking={ranking.ranking}
+              ranking={ranking.ranking!}
               name={ranking.name}
               date={ranking.date}
               score={ranking.score}

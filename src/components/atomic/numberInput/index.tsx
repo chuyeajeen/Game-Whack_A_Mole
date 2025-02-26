@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import {Wrapper} from "./styles";
+import { Wrapper } from './styles';
 
 /**
  * NumberInput props
@@ -13,13 +13,19 @@ import {Wrapper} from "./styles";
  */
 interface NumberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   value: NumberInputType;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: number) => void;
   min?: number;
   max?: number;
-    onOutOfRange?: (value: NumberInputType) => void
+  onOutOfRange?: (value: NumberInputType) => void;
 }
 
-const NumberInput = ({ value, onChange, min, max, onOutOfRange }: NumberInputProps) => {
+const NumberInput = ({
+  value,
+  onChange,
+  min,
+  max,
+  onOutOfRange,
+}: NumberInputProps) => {
   const [inputValue, setInputValue] = useState(value ?? '');
 
   const regex = useMemo((): RegExp => {
@@ -30,16 +36,16 @@ const NumberInput = ({ value, onChange, min, max, onOutOfRange }: NumberInputPro
   const validateValue = useCallback(
     (value: string): string => {
       if (min !== undefined && Number(value) < min) {
-          onOutOfRange?.(value);
+        onOutOfRange?.(value);
         return String(min);
       }
       if (max !== undefined && Number(value) > max) {
-          onOutOfRange?.(value);
+        onOutOfRange?.(value);
         return String(max);
       }
       return value;
- },
-    [min, max,onOutOfRange],
+    },
+    [min, max, onOutOfRange],
   );
 
   return (
@@ -49,18 +55,17 @@ const NumberInput = ({ value, onChange, min, max, onOutOfRange }: NumberInputPro
       onChange={(e) => {
         if (e.target.value === '') {
           setInputValue(e.target.value);
-          onChange?.(e);
-        }
-        else if(regex.test(e.target.value)){
-            const changeValue: string = validateValue(String(e.target.value));
-            setInputValue(changeValue);
-            onChange?.(e);
+        } else if (regex.test(e.target.value)) {
+          const changeValue: string = validateValue(String(e.target.value));
+          setInputValue(changeValue);
+          onChange?.(e.target.value);
         }
       }}
       onBlur={() => {
         if (inputValue === '-') {
           setInputValue(String(min ?? 0));
         }
+        onChange?.(Number(inputValue));
       }}
     />
   );

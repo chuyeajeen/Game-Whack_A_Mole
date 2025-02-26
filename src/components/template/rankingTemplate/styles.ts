@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   min-width: 800px;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 100px;
   box-shadow: 5px 5px 13px rgba(0, 0, 0, 0.15);
   .banner {
     position: absolute;

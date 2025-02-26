@@ -10,12 +10,12 @@ export const Wrapper = styled.div<{ rowCount: number; colCount: number }>`
   background-position: center;
 
   .game-info {
+    padding-left: 20px;
     display: flex;
-    padding-right: 20px;
-    padding-top: 20px;
     font-size: 40px;
     font-weight: bold;
     color: gold;
+    gap: 20px;
     .title {
       width: 200px;
     }
