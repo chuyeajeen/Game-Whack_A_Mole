@@ -9,6 +9,7 @@ import { TIME_INTERVAL } from '../../../constants/game';
  * WhackAMoleHole Props
  *
  * @param visible :두더지 visible여부
+ * @param setCount : score 저장
  * @param speed : 두더지 올라오는 속도
  * */
 interface WhackAMoleHoleProps {

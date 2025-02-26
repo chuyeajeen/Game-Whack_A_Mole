@@ -2,6 +2,11 @@ import React from 'react';
 import { Wrapper } from './styles';
 import RankingRow from '../../molecule/rankingRow';
 
+/**
+ * RankingTemplate Props
+ * 랭킹 화면 Template
+ * @param rankings : 쿠키에 저장되어있는 랭킹 배열
+ * */
 interface RankingTemplateProps {
   rankings: RankingItemType[];
 }

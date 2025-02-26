@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { ToastWrapper } from './styles';
 import { toastState } from '../../../store/toastState';
+import { TOAST_TIME } from '../../../constants/game';
 
+/**
+ * Toast
+ * toastState 의 open: true 시 message 내용 toast 노출
+ * */
 const Toast = () => {
   const [toast, setToast] = useRecoilState(toastState);
 
@@ -10,7 +15,7 @@ const Toast = () => {
     if (toast.open) {
       const timer = setTimeout(() => {
         setToast({ open: false, message: '' });
-      }, 1000);
+      }, TOAST_TIME);
       return () => clearTimeout(timer);
     }
   }, [toast.open]);

@@ -2,6 +2,13 @@ import React from 'react';
 import { Wrapper } from './styles';
 import { dateFormatUtils } from '../../../utils/dateUtils';
 
+/**
+ * 랭킹 Template 의 1 랭킹 molecule
+ * @param name : 랜딩페이지의 nickname
+ * @param score : score
+ * @param date : 게임 실행 날짜
+ * @param ranking : 순위
+ * */
 interface RankingRowProps {
   name: string;
   score: number;

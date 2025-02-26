@@ -10,6 +10,11 @@ import { useNavigate } from 'react-router-dom';
 import { updateRanking } from '../../utils/cookieUtils';
 import { ADD_MOLE_TIME, TIME_INTERVAL } from '../../constants/game';
 
+/**
+ * Game score 모달 props
+ * @param score : 점수
+ * @param setModalOpen : 모달 상태없데이트 콜백함수
+ * */
 interface GameScoreProps {
   score: number;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -39,6 +44,10 @@ const GameScore = ({ score, setModalOpen }: GameScoreProps) => {
   );
 };
 
+/**
+ * pause 모달 props
+ * @param : 재시작 상태 업데이트 콜백함수
+ * */
 interface PauseProps {
   setRetry: React.Dispatch<React.SetStateAction<boolean>>;
 }

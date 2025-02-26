@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { TIME } from '../../../constants/game';
 
+/**
+ * Timer props
+ *
+ * @param key : restart 시 key 값을 변경해 초기화
+ * @param onTimerEnd: timer 끝날 시 콜백함수
+ * @param pause : pause 시 timer 멈춤
+ */
 interface TimerProps {
   key: number;
   onTimerEnd?: () => void;
@@ -7,10 +15,10 @@ interface TimerProps {
 }
 
 const Timer = ({ key, onTimerEnd, pause = false }: TimerProps) => {
-  const [milliseconds, setMilliseconds] = useState(6000);
+  const [milliseconds, setMilliseconds] = useState(TIME);
 
   useEffect(() => {
-    setMilliseconds(6000);
+    setMilliseconds(TIME);
   }, [key]);
 
   useEffect(() => {
