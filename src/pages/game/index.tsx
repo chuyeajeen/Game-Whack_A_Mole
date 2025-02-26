@@ -171,7 +171,7 @@ const Game = () => {
       <div className={'game-info'}>
         <div className={'title'}>Time : </div>{' '}
         <Timer
-          key={timerKey}
+          refresh={timerKey}
           onTimerEnd={() => {
             setIsModalOpen(true);
             updateRanking(nickName, score);

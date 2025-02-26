@@ -17,19 +17,20 @@ interface NumberInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const TextInput = ({ value, onChange, maxLength }: NumberInputProps) => {
   const [isOverMax, setIsOverMax] = useState(false);
   return (
-    <Wrapper
-      isOverMax={isOverMax}
-      value={value}
-      type={'text'}
-      onChange={(e) => {
-        const inputValue = e.target.value;
-        if (inputValue.length >= maxLength && !isOverMax) setIsOverMax(true);
-        if (isOverMax && inputValue.length < maxLength) setIsOverMax(false);
-        if (e.target.value.length <= maxLength) {
-          onChange(e.target.value);
-        }
-      }}
-    />
+    <Wrapper isOverMax={isOverMax}>
+      <input
+        value={value}
+        type={'text'}
+        onChange={(e) => {
+          const inputValue = e.target.value;
+          if (inputValue.length >= maxLength && !isOverMax) setIsOverMax(true);
+          if (isOverMax && inputValue.length < maxLength) setIsOverMax(false);
+          if (e.target.value.length <= maxLength) {
+            onChange(e.target.value);
+          }
+        }}
+      />
+    </Wrapper>
   );
 };
 

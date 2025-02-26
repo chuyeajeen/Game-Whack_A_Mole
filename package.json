@@ -8,7 +8,9 @@
     "build": "webpack --mode production",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "lint": "eslint 'src/**/*.{ts,tsx}' --fix"
+    "run": "pnpm dev",
+    "start": "pnpm build && pnpm dev"
+
   },
   "keywords": [],
   "author": "",

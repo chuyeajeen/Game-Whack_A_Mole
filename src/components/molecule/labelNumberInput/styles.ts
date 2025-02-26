@@ -1,4 +1,4 @@
-import { styled } from 'styled-components';
+import styled from 'styled-components';
 
 export const Wrapper = styled.div<{ labelWidth: string }>`
   align-items: center;

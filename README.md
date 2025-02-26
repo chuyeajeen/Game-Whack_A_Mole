@@ -12,3 +12,14 @@
 - **Package Manager**: pnpm
 
 ---
+**Project Setup**
+
+```
+pnpm install
+```
+
+**Compiles and hot-reloads for development**
+
+```
+pnpm start
+```

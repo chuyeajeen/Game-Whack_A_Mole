@@ -9,7 +9,6 @@ const GlobalStyle = createGlobalStyle`
   
   html, body {
     font-family: 'Gumi', sans-serif;
-    height: 100vh;
     background-color: #357a14;
     margin: 0;
     display: flex;

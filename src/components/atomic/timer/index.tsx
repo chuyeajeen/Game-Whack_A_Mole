@@ -11,17 +11,17 @@ import { moleSpeedUpState } from '../../../store/moleState';
  * @param pause : pause 시 timer 멈춤
  */
 interface TimerProps {
-  key: number;
+  refresh: number;
   onTimerEnd?: () => void;
   pause?: boolean;
 }
 
-const Timer = ({ key, onTimerEnd, pause = false }: TimerProps) => {
+const Timer = ({ refresh, onTimerEnd, pause = false }: TimerProps) => {
   const [milliseconds, setMilliseconds] = useState(TIME);
   const [moleSpeedUp, setMoleSpeedUp] = useRecoilState(moleSpeedUpState);
   useEffect(() => {
     setMilliseconds(TIME);
-  }, [key]);
+  }, [refresh]);
 
   useEffect(() => {
     if (milliseconds <= 0) {
