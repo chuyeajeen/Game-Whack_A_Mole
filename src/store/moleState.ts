@@ -18,3 +18,8 @@ export const nickNameState = atom<string>({
   key: 'nickNameState',
   default: '',
 });
+
+export const moleSpeedUpState = atom<boolean>({
+  key: 'moleSpeedUpState',
+  default: false,
+});

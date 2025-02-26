@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TIME } from '../../../constants/game';
+import { useRecoilState } from 'recoil';
+import { moleSpeedUpState } from '../../../store/moleState';
 
 /**
  * Timer props
@@ -16,16 +18,17 @@ interface TimerProps {
 
 const Timer = ({ key, onTimerEnd, pause = false }: TimerProps) => {
   const [milliseconds, setMilliseconds] = useState(TIME);
-
+  const [moleSpeedUp, setMoleSpeedUp] = useRecoilState(moleSpeedUpState);
   useEffect(() => {
     setMilliseconds(TIME);
   }, [key]);
 
   useEffect(() => {
     if (milliseconds <= 0) {
+      setMoleSpeedUp(false);
       if (onTimerEnd) onTimerEnd();
       return;
-    }
+    } else if (milliseconds <= TIME / 6 && !moleSpeedUp) setMoleSpeedUp(true);
     if (pause) return;
 
     const timer = setInterval(() => {

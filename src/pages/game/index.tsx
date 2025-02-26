@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ScoreWrapper, Wrapper } from './styles';
 import WhackAMolePopup from '../../components/molecule/whackAMolePopup';
 import { useRecoilValue } from 'recoil';
-import { moleState, nickNameState } from '../../store/moleState';
+import {
+  moleSpeedUpState,
+  moleState,
+  nickNameState,
+} from '../../store/moleState';
 import Timer from '../../components/atomic/timer';
 import Modal from '../../components/atomic/modal';
 import Button from '../../components/atomic/button';
@@ -46,7 +50,7 @@ const GameScore = ({ score, setModalOpen }: GameScoreProps) => {
 
 /**
  * pause 모달 props
- * @param : 재시작 상태 업데이트 콜백함수
+ * @param : 재시작 상태 업데이트 콜백함
  * */
 interface PauseProps {
   setRetry: React.Dispatch<React.SetStateAction<boolean>>;
@@ -75,6 +79,12 @@ const Game = () => {
   const [timerKey, setTimerKey] = useState(0);
   const [isPause, setIsPause] = useState(false);
   const nickName = useRecoilValue(nickNameState);
+  const moleSpeedUp = useRecoilValue(moleSpeedUpState);
+  const [speedUpFlag, setSpeedUpFlag] = useState(moleSpeedUp ? 2 : 1);
+
+  useEffect(() => {
+    setSpeedUpFlag(moleSpeedUp ? 2 : 1);
+  }, [moleSpeedUp]);
 
   useEffect(() => {
     if (!isPause) setIsModalOpen(false);
@@ -126,13 +136,16 @@ const Game = () => {
               activeMolesSet.delete(randomIndex);
               cooldownMolesSet.add(randomIndex);
 
-              setTimeout(() => {
-                cooldownMolesSet.delete(randomIndex);
-              }, TIME_INTERVAL / 2);
+              setTimeout(
+                () => {
+                  cooldownMolesSet.delete(randomIndex);
+                },
+                TIME_INTERVAL / (speedUpFlag * 2),
+              );
 
               return updatedMoles;
             });
-          }, TIME_INTERVAL);
+          }, TIME_INTERVAL / speedUpFlag);
         }
 
         return newVisibleMoles;
@@ -147,7 +160,7 @@ const Game = () => {
       activeMolesSet.clear();
       cooldownMolesSet.clear();
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, speedUpFlag]);
 
   return (
     <Wrapper rowCount={mole.row} colCount={mole.col}>
@@ -184,7 +197,7 @@ const Game = () => {
               visible={isVisible}
               setCount={setScore}
               index={index}
-              speed={TIME_INTERVAL}
+              speed={TIME_INTERVAL / speedUpFlag}
             />
           ))}
       </div>
