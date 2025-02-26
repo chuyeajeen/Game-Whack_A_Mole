@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Hole from '../../../assets/game/hole.png';
 import Mole from '../../../assets/game/mole.png';
+import LightMole from '../../../assets/game/light-mole.png';
 import { Wrapper } from './styles';
-import { moleState } from '../../../store/moleState';
 
 /**
  * WhackAMoleHole Props
@@ -26,7 +26,7 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
   const [moleVisible, setMoleVisible] = useState(visible);
   const [moleSpeed, setMoleSpeed] = useState(speed);
   const handleDoubleClick = useRef(false);
-
+  const [isLight, setIsLoght] = useState(false);
   useEffect(() => {
     setMoleVisible(visible);
     setMoleSpeed(speed);
@@ -40,6 +40,7 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
     setMoleVisible(false);
     setMoleSpeed(moleSpeed / 2);
     setCount((prevState) => prevState + 1);
+    setIsLoght(true);
     setTimeout(() => {
       handleDoubleClick.current = false;
     }, 2000);
@@ -48,7 +49,21 @@ const WhackAMoleHole: React.FC<WhackAMoleHoleProps> = ({
   return (
     <Wrapper isVisible={moleVisible} speed={moleSpeed}>
       <img className={'hole'} src={Hole} alt={'hole'} />
-      <img className={'mole'} src={Mole} alt="Mole" onClick={handleMoleClick} />
+      {isLight ? (
+        <img
+          className={'mole'}
+          src={LightMole}
+          alt="Mole"
+          onClick={handleMoleClick}
+        />
+      ) : (
+        <img
+          className={'mole'}
+          src={Mole}
+          alt="Mole"
+          onClick={handleMoleClick}
+        />
+      )}
     </Wrapper>
   );
 };

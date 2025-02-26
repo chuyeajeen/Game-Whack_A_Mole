@@ -22,8 +22,7 @@ export const Wrapper = styled.div<{ isVisible: boolean; speed: number }>`
     aspect-ratio: 3 / 2;
     max-width: 50vw;
     position: absolute;
-    bottom: ${({ isVisible }) =>
-      isVisible ? '-19%' : '-100%'}; /* 애니메이션을 위해 bottom 조절 */
+    bottom: ${({ isVisible }) => (isVisible ? '-19%' : '-100%')};
     left: 50%;
     transform: translateX(-50%);
     transition: bottom ${({ speed }) => speed}ms ease-in-out;

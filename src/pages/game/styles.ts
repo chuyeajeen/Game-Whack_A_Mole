@@ -8,9 +8,20 @@ export const Wrapper = styled.div<{ rowCount: number; colCount: number }>`
   background-image: url(${gameBg});
   background-size: cover;
   background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  .game-info {
+    display: flex;
+    padding-right: 20px;
+    padding-top: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: gold;
+    .title {
+      width: 200px;
+    }
+  }
+
+  .time {
+  }
 
   .content {
     width: 700px;

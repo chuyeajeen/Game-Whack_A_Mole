@@ -3,6 +3,7 @@ import { Wrapper } from './styles';
 import WhackAMolePopup from '../../components/molecule/whackAMolePopup';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { moleState, visibleMoleState } from '../../store/moleState';
+import Timer from '../../components/atomic/timer';
 
 const Game = () => {
   const mole = useRecoilValue(moleState);
@@ -74,7 +75,13 @@ const Game = () => {
 
   return (
     <Wrapper rowCount={mole.row} colCount={mole.col}>
-      {score}
+      <div className={'game-info'}>
+        <div className={'title'}>Score :</div>
+        <> {score}</>
+      </div>
+      <div className={'game-info'}>
+        <div className={'title'}>Time : </div> <Timer />
+      </div>
       <div className="content">
         {visibleMoles &&
           visibleMoles.map((isVisible, index) => (
