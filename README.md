@@ -25,6 +25,7 @@ pnpm start
 ```
 
 ## Project 구조
+```
 project-root
 
 ┣  puiblic
@@ -90,3 +91,4 @@ project-root
 ┣  .babelrc
 
 ┗  README.md
+```
