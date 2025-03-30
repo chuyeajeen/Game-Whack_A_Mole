@@ -1,11 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  @font-face {
-    font-family: 'Gumi';
-    src: url('/fonts/GumiRomance.ttf') format('truetype');
-    font-weight: bold;
-  }
   
   html, body {
     font-family: 'Gumi', sans-serif;
